@@ -2,34 +2,24 @@
 using namespace std;
  
 #define STACK_SIZE 256 /* capacidad máxima */
-typedef char arreglo[STACK_SIZE];
+typedef int arreglo[STACK_SIZE];
  
 class Stack {
-	 
-	int sp; /* puntero de lectura/escritura */
-	int items; /* número de elementos en lista */
-	int itemsize; /* tamaño del elemento */
-	arreglo pila;	 /* el arreglo */
-	 
+	int sp; 
+	int items;
+	int itemsize; 
+	arreglo pila;	 
 	public:
-		// constructor
 		Stack() {
 			sp = STACK_SIZE-1;
 			items = 0;
 			itemsize = 1;
 		 }
-	 
-		// destructor
 		~Stack() {};
-	 
-	/* regresa el número de elementos en lista */
+
 	int size() { return items; }
-	 
-	/* regresa 1 si no hay elementos en la lista, o sea, si la lista está vacia */
 	int empty() { return items == 0; }
-	 
-	/* insertar elemento a la lista */
-	int put(char d)
+	int push(int d)
 	{
 		if ( sp >= 0) {
 			pila[sp] = d;
@@ -38,9 +28,7 @@ class Stack {
 		}
 		return d;
 	}
-	 
-	/* retirar elemento de la lista */
-	int get()
+	int pop()
 	{
 		if ( ! empty() ) {
 			sp ++;
@@ -49,25 +37,15 @@ class Stack {
 		return pila[sp];
 	}
 	 
-}; // fin de clase Stack
- 
- 
-// probando la pila. 
-// Nota: obseve cómo los elementos se ingresan en orden desde la A hasta la Z,
-// y como los mismos se recuperán en orden inverso.
+}; 
 int main()
 {
     int d;
-    Stack s;  // s es un objeto (instancia) de la clase Stack
- 
-    // llenando la pila
-    for (d='A'; d<='Z'; d++) s.put(d);
- 
+    Stack s; 
+    for (d=1; d<=9; d++) s.push(d); 
     cout << "Items =" << s.size() << endl;
- 
-    // vaciando la pila
-    while ( s.size() ) cout << (char)s.get() << " ";
- 
+    while ( s.size() ) 
+    	cout << (int)s.pop() << " "; 
     cout << "\nPara terminar oprima <Enter>...";
     cin.get();
     return 0;
