@@ -101,6 +101,12 @@ void imprimir(list A[n])
 	cout<<endl;
 
 }
+void imprimir(int A[]){
+	for(int i=0;i<n;i++){
+		cout<<A[i]<<" ";
+	}
+	cout<<endl;
+}
 int elevar(int base,int poten){
     int res=base;
     for(int i=0;i<poten-1;i++){
@@ -128,7 +134,7 @@ int* cubeta(int A[n]){
             tamCubeta=cubeta[j].tam;
             int cont=0;
             while(aux!=NULL && cont<tamCubeta){
-            	
+
                 cont++;
                 int va=aux->va;
                 pos=(va%(elevar(10,i+1)))/elevar(10,i);
@@ -144,6 +150,9 @@ int* cubeta(int A[n]){
 
 int main(){
 	int A[n]={64,8,216,512,27,729,0,1,343,125};
+	cout<<"Data input: ";
+	imprimir(A);
+	cout<<"Resultados: ";
 	cubeta(A);
 	return 0;
 }
