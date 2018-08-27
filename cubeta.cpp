@@ -20,6 +20,7 @@ class list
 {
 public:
 	list();
+	int tam=0;
 	node* inicio;
 	node* fin;
 	void insertar(int va);
@@ -46,8 +47,10 @@ void list::insertar(int va){
 		}
 		aux->sig=nuevo;
 		nuevo->ant=aux;
+		nuevo->sig=NULL;
 		this->fin=nuevo;
 	}
+	tam++;
 }
 
 void list::eliminar(node *valor){
@@ -55,9 +58,33 @@ void list::eliminar(node *valor){
 	while(aux!=valor){
 		aux=aux->sig;
 	}
-	aux->ant->sig=aux->sig;
-	aux->sig->ant=aux->ant;
-	delete aux;
+	if(aux==inicio)
+    {
+        if(inicio->sig==NULL)
+        {
+            inicio=NULL;
+            fin=NULL;
+            delete aux;
+        }
+        else
+        {
+            inicio=inicio->sig;
+            delete aux;
+        }
+    }
+    else if(aux==fin)
+    {
+        fin=fin->ant;
+        fin->sig=NULL;
+        delete aux;
+    }
+    else
+    {
+        aux->ant->sig=aux->sig;
+        aux->sig->ant=aux->ant;
+        delete aux;
+    }
+    tam--;
 }
 int max_element(int A[n]){
 	int max=A[0];
@@ -68,37 +95,66 @@ int max_element(int A[n]){
 	return max;
 }
 
-void imprimir(list A[n]){
-	for(int i=0;i<n;i++){
-		node *aux=A[i].inicio;
+void imprimir(list A[n])
+{
+    node * aux;
+	for(int i=0;i<n;i++)
+    {
+		aux=A[i].inicio;
 		while(aux!=NULL){
-			cout<<aux->va<<"<->";
+			cout<<aux->va<<" ";
 			aux=aux->sig;
 		}
-		cout<<endl;
+		
 	}
+	cout<<endl;
 
 }
-
-int* cubeta(int A[n]){
+int elevar(int base,int poten)
+{
+    int res=base;
+    for(int i=0;i<poten-1;i++)
+    {
+        res=res*base;
+    }
+    return res;
+}
+int* cubeta(int A[n])
+{
 	list cubeta[n];
-	int mod,aux,max;
+	int max,tam,pos,tamCubeta;
+	node * aux;
+	node* aux2;
 	max=max_element(A);
 	string b=to_string(max);
-	mod=10;
-	for(int j=0;j<n;j++){
-			aux=A[j]%mod;
-			cubeta[aux].insertar(A[j]);
-	}
-	imprimir(cubeta);
-	for(int i=0;i<n;i++){
-		mod=pow(10,i);
-		node* aux=cubeta[i].inicio;
-		while(aux!=NULL)
-		{
-			
-		}
-	}
+	tam=b.length();
+	for(int i=0;i<n;i++)
+    {
+        pos=A[i]%10;
+        cubeta[pos].insertar(A[i]);
+    }
+	for(int i=1;i<tam;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            aux=cubeta[j].inicio;
+            tamCubeta=cubeta[j].tam;
+            int cont=0;
+            while(aux!=NULL && cont<tamCubeta)
+            {
+                cont++;
+                int va=aux->va;
+                pos=(va%(elevar(10,i+1)))/elevar(10,i);
+                aux2=aux;
+                aux=aux->sig;
+                cubeta[j].eliminar(aux2);
+                cubeta[pos].insertar(va);
+            }
+        }
+        
+
+    }
+    imprimir(cubeta);
 }
 
 
