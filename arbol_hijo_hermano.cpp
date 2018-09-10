@@ -1,4 +1,3 @@
-#include <graphviz/gvc.h>
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -50,16 +49,38 @@ void insertar_hermano(nodo *hijo,char valor){
     hij->padre=hijo->padre; 
   }
 }
-void inorder(nodo *raiz){
+void preorder(nodo *raiz){
   //imprimimos raiz
   if(raiz==NULL)
     return;
   
     cout<<raiz->val<<"  ";
+    preorder(raiz->hijo);
+    preorder(raiz->hermano);
+  
+}
+void inorder(nodo *raiz){
+  //imprimimos raiz
+  if(raiz==NULL)
+    return;
+  
+    
     inorder(raiz->hijo);
+    cout<<raiz->val<<"  ";
     inorder(raiz->hermano);
   
 }
+void postorder(nodo *raiz){
+  //imprimimos raiz
+  if(raiz==NULL)
+    return;
+  
+    postorder(raiz->hijo);
+    postorder(raiz->hermano);
+    cout<<raiz->val<<"  ";
+  
+}
+
 
 
 int main(){
