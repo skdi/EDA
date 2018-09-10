@@ -86,9 +86,21 @@ void postorder(nodo *raiz){
 int main(){
   nodo *padre=new nodo('a');
   insertar_hijo(padre,'b');
-  insertar_hijo(padre,'c');
+  insertar_hermano(padre->hijo,'c');
   insertar_hermano(padre->hijo,'d');
-  inorder(padre);
+  insertar_hijo(padre->hijo->hermano,'e');
+  insertar_hijo(padre->hijo->hermano,'f');
+  insertar_hijo(padre->hijo->hermano->hermano,'g');
+  insertar_hijo(padre->hijo->hermano->hermano->hijo,'h');
+  insertar_hermano(padre->hijo->hermano->hermano->hijo,'i');
+  insertar_hermano(padre->hijo->hermano->hermano->hijo,'j');
+  insertar_hermano(padre->hijo->hermano->hermano->hijo,'k');
+  cout<<"inorder:"<<endl;
+  preorder(padre);
+  cout<<"postorder:"<<endl;
+  postorder(padre);
+  cout<<"preorder:"<<endl;
+  preorder(padre);
 
 
 
