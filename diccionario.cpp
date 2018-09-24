@@ -109,6 +109,7 @@ int main(){
     string texto_plano="texto.txt";
     haashmap *diccionario=crear_diccionario(texto_plano);
     detectar(diccionario);
+    delete diccionario;
     return 0;
 
 }
