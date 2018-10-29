@@ -44,18 +44,48 @@ void imprimir(vpar ix){
     }
 }
 
-int BoyerMoore(string T,string P,string Alpha){
+int posi(vpar L,char a){
+    for(int i=0;i<L.size();i++){
+        if(L[i].first==a)
+            return L[i].second;
+    }
+    return -1;
+}
 
+int BoyerMoore(string T,string P,string Alpha){
+    vpar L=Last_occurrence(P,Alpha);
+    int n=T.length();
+    int m=P.length();
+    int i,j,l;
+    i=m-1;
+    j=m-1;
+    do{
+        if(T[i]==P[j]){
+            if(j==0)
+                return i;
+            else{
+                i-=1;
+                j-=1;
+            }
+        }else{
+            l=posi(L,T[i]);
+            i=i+m-min(j,i+l);
+            j=m-1;
+        }
+
+    }while(i<=n-1);
+    return -1;
 }
 
 int main(){
     string T,P;
     vpar index;
     T="abacaab";
-    P="cab";
-    cout<<FuerzaBruta(T,P)<<endl;
+    P="ac";
+    //cout<<FuerzaBruta(T,P)<<endl;
     index=Last_occurrence("abacab","abcd");
     imprimir(index);
+    cout<<BoyerMoore(T,P,abc)<<endl;
 
     return 0;
 }
