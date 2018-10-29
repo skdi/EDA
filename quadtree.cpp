@@ -85,7 +85,7 @@ void quadtree(matrix A,nodo *root){
 int main(){
     matrix matriz;
     matrix sub;
-    matriz=llenar_matriz(2);
+    matriz=llenar_matriz(2);//llenarla con 2^n
     imprimir_matriz(matriz);
     sub=submatriz(0,0,1,matriz);
     imprimir_matriz(sub);
